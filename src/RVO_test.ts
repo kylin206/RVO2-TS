@@ -1,7 +1,7 @@
-import Simulator from "./rov/Simulator"
-import RVOMath from "./rov/RVOMath"
+import Simulator from "./rvo/Simulator"
+import RVOMath from "./rvo/RVOMath"
 import RovDebug from "./RovDebug";
-import Vector2D from "./rov/Vector2D";
+import Vector2D from "./rvo/Vector2D";
 
 export default class RVO_test {
     private simulator: Simulator
