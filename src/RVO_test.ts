@@ -1,6 +1,6 @@
 import Simulator from "./rvo/Simulator"
 import RVOMath from "./rvo/RVOMath"
-import RovDebug from "./RovDebug";
+// import RovDebug from "./RovDebug";
 import Vector2D from "./rvo/Vector2D";
 
 export default class RVO_test {
@@ -52,7 +52,7 @@ export default class RVO_test {
             let y = 30 * (i % 10) - 50;
             // if (i < 50) y -= 200;
 
-            simulator.addAgent(null);
+            simulator.addAgent(null as any);
             simulator.setAgentPosition(i, x, y);
         }
 
@@ -102,8 +102,8 @@ export default class RVO_test {
 
         // console.log(simulator)
 
-        Laya.timer.frameLoop(1, this, this.step);
-        RovDebug.ins.start(Laya.stage, simulator);
+        // Laya.timer.frameLoop(1, this, this.step);
+        // RovDebug.ins.start(Laya.stage, simulator);
     }
 
     step() {
@@ -127,7 +127,7 @@ export default class RVO_test {
 
         // console.log(simulator)
         if (simulator.reachedGoal()) {
-            Laya.timer.clear(this, this.step);
+            // Laya.timer.clear(this, this.step);
             console.log('finish')
         }
 

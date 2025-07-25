@@ -1,10 +1,10 @@
 
-import Vector2D from "./Vector2D";
-import Obstacle from "./Obstacle";
 import Agent from "./Agent";
-import RVOMath from "./RVOMath";
 import KdTree from "./KdTree";
 import Line from "./Line";
+import Obstacle from "./Obstacle";
+import RVOMath from "./RVOMath";
+import Vector2D from "./Vector2D";
 
 
 export default class Simulator {
@@ -72,7 +72,7 @@ export default class Simulator {
     return this.agents[i].orcaLines;
   }
 
-  addAgent(position: Vector2D = null) {
+  addAgent(position: Vector2D) {
     if (!this.defaultAgent) {
       throw new Error("no default agent");
     }
@@ -151,7 +151,11 @@ export default class Simulator {
   getGoal(goalNo: number): Vector2D {
     return this.goals[goalNo];
   }
-
+  /**
+   * 添加障碍物，首位相连，并判定顶点是否为凸点，最低允许两个顶点组成障碍物
+   * @param vertices 
+   * @returns 
+   */
   addObstacle(vertices: Vector2D[]): number {
     if (vertices.length < 2) {
       return -1;

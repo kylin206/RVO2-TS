@@ -1,8 +1,8 @@
 
-import RVOMath from "./RVOMath";
-import Simulator from "./Simulator";
 import Agent from "./Agent";
 import Obstacle from "./Obstacle";
+import RVOMath from "./RVOMath";
+import Simulator from "./Simulator";
 import Vector2D from "./Vector2D";
 
 export default class KdTree {
@@ -12,7 +12,7 @@ export default class KdTree {
 
   private agents: Agent[] = [];
   private agentTree: AgentTreeNode[] = [];
-  private obstacleTree: ObstacleTreeNode = new ObstacleTreeNode();
+  private obstacleTree: ObstacleTreeNode | null = null;
 
   buildAgentTree() {
     if (this.agents.length != this.simulator.getNumAgents()) {
@@ -87,9 +87,9 @@ export default class KdTree {
     this.obstacleTree = this._buildObstacleTreeRecursive(obstacles);
   }
 
-  private _buildObstacleTreeRecursive(obstacles: Obstacle[]) {
+  private _buildObstacleTreeRecursive(obstacles: Obstacle[]): ObstacleTreeNode {
     if (obstacles.length == 0) {
-      return null;
+      return null as any;
     } else {
       var node = new ObstacleTreeNode();
       var optimalSplit = 0;
@@ -143,11 +143,11 @@ export default class KdTree {
 
       {
         /* Build split node. */
-        let leftObstacles = [];
-        for (var n = 0; n < minLeft; ++n) leftObstacles.push(null);
+        let leftObstacles: Obstacle[] = [];
+        for (var n = 0; n < minLeft; ++n) leftObstacles.push(null as any);
 
-        let rightObstacles = [];
-        for (var n = 0; n < minRight; ++n) rightObstacles.push(null);
+        let rightObstacles: Obstacle[] = [];
+        for (var n = 0; n < minRight; ++n) rightObstacles.push(null as any);
 
         let leftCounter = 0;
         let rightCounter = 0;
@@ -257,7 +257,7 @@ export default class KdTree {
   }
 
   // pass ref range
-  private _queryObstacleTreeRecursive(agent: Agent, rangeSq: number, node: ObstacleTreeNode) {
+  private _queryObstacleTreeRecursive(agent: Agent, rangeSq: number, node: ObstacleTreeNode | null) {
     if (node == null) {
       return;
     } else {
@@ -289,7 +289,7 @@ export default class KdTree {
     return this._queryVisibilityRecursive(q1, q2, radius, this.obstacleTree);
   }
 
-  private _queryVisibilityRecursive(q1: Vector2D, q2: Vector2D, radius: number, node: ObstacleTreeNode): boolean {
+  private _queryVisibilityRecursive(q1: Vector2D, q2: Vector2D, radius: number, node: ObstacleTreeNode | null): boolean {
     if (node == null) {
       return true;
     } else {

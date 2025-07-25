@@ -8,11 +8,11 @@ export default class Line {
      * @param point     A point on the directed line.
      * @param direction The direction of the directed line.
      */
-    constructor(point: Vector2D = null, direction: Vector2D = null) {
+    constructor(point: Vector2D, direction: Vector2D) {
         this.direction = direction;
         this.point = point;
     }
-
+    
     /**
      * The direction of this directed line.
      */

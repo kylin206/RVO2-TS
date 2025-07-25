@@ -7,7 +7,7 @@ import Line from "./Line";
 export default class Agent {
   public id = 0;
   simulator: Simulator;
-  agentNeighbors = []; //  new List<KeyValuePair<float, Agent>>()
+  agentNeighbors:KeyValuePair[] = []; //  new List<KeyValuePair<float, Agent>>()
   maxNeighbors = 0;
   maxSpeed = 0.0;
   neighborDist = 0.0;
@@ -77,7 +77,7 @@ export default class Agent {
       let s = relativePosition1.scale(-1).multiply(obstacleVector) / RVOMath.absSq(obstacleVector); //  (-relativePosition1 * obstacleVector) / RVOMath.absSq(obstacleVector)
       let distSqLine = RVOMath.absSq(relativePosition1.scale(-1).minus(obstacleVector.scale(s))); // RVOMath.absSq(-relativePosition1 - s * obstacleVector)
 
-      var line = new Line();
+      var line = {} as unknown as Line; // new Line()
 
       if (s < 0 && distSq1 <= radiusSq) {
         /* Collision with left vertex. Ignore if non-convex. */
@@ -268,7 +268,7 @@ export default class Agent {
       let combinedRadius = this.radius + other.radius
       let combinedRadiusSq = RVOMath.sqr(combinedRadius)
 
-      var line = new Line(); // Line
+      var line = {} as unknown as Line; // Line
       var u: Vector2D;
 
       if (distSq > combinedRadiusSq) {
@@ -489,13 +489,13 @@ export default class Agent {
       if (RVOMath.det(lines[i].direction, lines[i].point.minus(this._newVelocity)) > distance) {
         /* Result does not satisfy constraint of line i. */
         //std::vector<Line> projLines(lines.begin(), lines.begin() + numObstLines)
-        let projLines = []; // new List<Line>()
+        let projLines:Line[] = []; // new List<Line>()
         for (var ii = 0; ii < numObstLines; ++ii) {
           projLines.push(lines[ii]);
         }
 
         for (var j = numObstLines; j < i; ++j) {
-          var line = new Line();
+          var line = {} as unknown as Line; // new Line()
 
           let determinant = RVOMath.det(lines[i].direction, lines[j].direction);
 
